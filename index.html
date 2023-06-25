@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Котики</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="font-awesome.min.css">
+<style type="text/css">
+body {
+font-family: Arial, sans-serif;
+background-color: #f1f1f1;
+}
+h1 {
+text-align: center;
+margin-top: 50px;
+color: #333;
+}
+.container {
+display: flex;
+flex-wrap: wrap;
+justify-content: center;
+align-items: center;
+margin-top: 50px;
+}
+.card {
+width: 300px;
+margin: 20px;
+background-color: #fff;
+box-shadow: 0px 2px 6px #888;
+border-radius: 5px;
+overflow: hidden;
+}
+.card img {
+width: 100%;
+height: 200px;
+object-fit: cover;
+}
+.card .info {
+padding: 20px;
+text-align: justify;
+line-height: 1.5em;
+}
+.card h2 {
+margin-top: 0;
+}
+.card p {
+margin-bottom: 0;
+}
+.card .rate {
+display: flex;
+margin-top: 10px;
+}
+.card .rate span {
+font-size: 1.2em;
+color: #FFC107;
+margin-right: 5px;
+}
+.card .rate i {
+color: #FFC107;
+}
+.card .fav i {
+font-size: 1.5em;
+color: #F44336;
+position: absolute;
+top: 10px;
+right: 10px;
+cursor: pointer;
+}
+</style>
+</head>
+<body>
+<h1>Котики и их описания</h1>
+<div class="container">
+<script type="text/javascript">
+const cats = [
+{
+"name": "Лара",
+"img_link": "https://www.friendforpet.ru/api/sites/default/files/2021-09/167200DD-A44F-4845-8D4D-ACCFC180165A.jpeg",
+"age": 8,
+"rate": 7,
+"favourite": false,
+"description": "Лара – шотландская вислоухая, у нее остеохондродисплазия. Лара спокойная, очень ласковая и контактная. Болезнь не лечится и специального ухода не нужно.",
+"id": 1
+},
+{
+"name": "Базиль",
+"img_link": "https://www.friendforpet.ru/api/sites/default/files/2022-01/064AEBCB-45EC-4CE7-AB13-C65F10F00B7B.jpeg",
+"age": 2,
+"rate": 10,
+"favourite": false,
+"description": "Внимательный, активный и ласковый. Любит играть, катать мяч, и мурчать на пледе рядом с людьми! Прилично воспитан, приучен к лотку. Вакцинирован, имеет ветеринарный паспорт.",
+"id": 2
+},
+{
+"name": "Риш",
+"img_link": "https://www.friendforpet.ru/api/sites/default/files/2022-01/_DM34706.JPG",
+"age": 1,
+"rate": 10,
+"favourite": true,
+"description": "Риш любит лесенки, канаты. Очень активный и дружелюбный кот. Риш полностью здоров, привит, кастрирован. Использует лоточек и очень аккуратен.",
+"id": 3
+},
+
+            ];
+            function renderCards(cats) {
+  let container = document.querySelector('.container');
+  container.innerHTML = '';
+  cats.forEach(cat => {
+    let card = `<div class="card"> 
+        <img src="${cat.img_link}" alt="${cat.name}"></img> 
+        <div class="info"> 
+            <h2>${cat.name}</h2> 
+            <p><strong>Возраст: </strong>${cat.age} года</p> 
+            <p>${cat.description}</p> 
+            <div class="rate"> 
+                <span>${cat.rate}</span> 
+                <i class="fa fa-star"></i> 
+            </div> 
+            <div class="fav"> 
+                <i class="fa fa-heart${cat.favourite ? ' active' : ''}" data-id="${cat.id}"></i> 
+            </div> 
+        </div> 
+    </div>`;
+    container.insertAdjacentHTML('beforeend', card);
+  });
+  //Избранное почему-то не работает, не бейте пожалуйста :(
+  document.querySelectorAll('.fav i').forEach(icon => {
+    icon.addEventListener('click', () => {
+      let id = icon.getAttribute('data-id');
+      let cat = cats.find(cat => cat.id == id);
+      if (cat) {
+        cat.favourite = !cat.favourite;
+        icon.classList.toggle('active', cat.favourite);
+      }
+    });
+  });
+}
+renderCards(cats);
+</script>
+</div>
+</body>
+</html>
